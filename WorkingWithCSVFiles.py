@@ -18,3 +18,18 @@
 
 # Reading CSV files into an array:
 
+# Will read a CSV file into an array of arrays in Python
+# Will need to use the CSV module in the Python Standard Library
+# Downloading inventory.csv file and saved it to folder
+# import the csv module from the standard library
+
+import csv
+
+def read_csv_to_array(filename):
+  # define the array that will hold the data
+  data = []
+
+# Read the data into an array of arrays
+inventory_data = read_csv_to_array("Inventory.csv")
+
+# Each row in the array is itself an array of values
