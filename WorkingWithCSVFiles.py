@@ -23,6 +23,7 @@
 # Downloading inventory.csv file and saved it to folder
 # import the csv module from the standard library
 
+''''
 import csv
 
 def read_csv_to_array(filename):
@@ -42,4 +43,91 @@ inventory_data = read_csv_to_array("Inventory.csv")
 print(f"Items: {len(inventory_data)}")
 print(inventory_data[0])
 print(inventory_data[1])
-print(inventory_data[1][0], inventory_data[1][2])
+print(inventory_data[1][0], inventory_data[1][2]
+'''
+
+
+# Reading CSV files into a dictionary:
+
+# A CSV file can be read as a dictionary as another option to an array of arrays
+# Use the DictReader class to read a CSV file as a dictionary, which is also in the CSV module
+
+'''
+import csv
+import pprint
+
+def read_csv_to_dict(filename):
+    data = {}
+    with open(filename, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        #row = next(reader)
+        # Below line prints the first row, a dictionary of key-value pairs
+        #print(row)
+        # Below prints the values that are used as keys in each row
+        # These lines let you use item name as the overall dictionary key 
+        #print(reader.fieldnames)
+
+        # Will modify code to just use an integer for each key
+        # Goes from this:
+        #for row in reader:
+            #data[row[reader.fieldnames[0]]] = row
+
+        # To this:
+        key = 0
+        for row in reader:
+            data[key] = row
+            key +=1
+
+
+    return data
+
+# Example usage
+inventory_data = read_csv_to_dict("Inventory.csv")
+
+# Accessing data
+# pprint is pretty print
+pprint.pprint(inventory_data)
+
+# Now that earlier code is changed to use integers as keys, this code is outdated
+# Change this:
+#pprint.pprint(inventory_data["Apple"])
+#pprint.pprint(inventory_data["Apple"]["Consumer Price"])
+
+# To this:
+pprint.pprint(inventory_data[0])
+pprint.pprint(inventory_data[0]["Consumer Price"])
+
+# Each item is now differentiated by a number instead of it's name, but is still essentially the same
+'''
+
+
+# Reading CSV files with a filter:
+
+# When working with a large CSV file, it'd be beneficial to just work with a subset of the overall data
+# Can accomplish this by defining a filter function and apply it to each row as the data is read
+
+import csv
+import pprint
+
+def read_csv_filter_rows(filename, filter_func):
+  # array to hold the filtered data result
+  filtered_data = []
+
+  with open(filename, 'r') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+      if (filter_func(row)):
+        filtered_data.append(row)
+  return filtered_data
+
+# Filter function (replace with your specific filtering criteria)
+def filter_by_catagory(row, category):
+  return row[1] == category
+
+# Call the read function with a filter function
+# Should filter out everyting that isn't a fruit
+filtered_rows = read_csv_filter_rows("Inventory.csv", lambda row: filter_by_catagory(row, "Fruits"))
+
+# Print filtered data
+pprint.pprint(filtered_rows)
