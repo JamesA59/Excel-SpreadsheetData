@@ -161,3 +161,38 @@ def write_array_to_csv(data, filename):
 write_array_to_csv(data, "output.csv")
 '''
 
+
+# Writing a dictionary as CSV:
+
+# Need to define the column names that will be the header row for the output CSV file
+#       Above is required by the DictWriter object that will be used
+# The field names parameter will be used to match each of the keys to one of the output columns
+#       Above is required by the DictWriter object that will be used
+
+import csv
+
+# define the column names that will be the header row
+
+
+# declare the sample data
+data = [
+  {"Item Name":"Apple", "Category":"Fruits", "Quantity":100, "Wholesale Price":0.50, "Consumer Price":0.75},
+  {"Item Name":"Banana", "Category":"Fruits", "Quantity":150, "Wholesale Price":0.35, "Consumer Price":0.50},
+  {"Item Name":"Orange", "Category":"Fruits", "Quantity":120, "Wholesale Price":0.45, "Consumer Price":0.65},
+  {"Item Name":"Grapes", "Category":"Fruits", "Quantity":80, "Wholesale Price":0.60, "Consumer Price":0.85},
+  {"Item Name":"Strawberries", "Category":"Fruits", "Quantity":90, "Wholesale Price":1.20, "Consumer Price":1.50}
+]
+
+fieldnames = ["Item Name", "Category", "Quantity", "Wholesale Price", "Consumer Price"]
+
+# function to write the data
+def write_dict_to_csv(data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data)
+
+
+# write the data to the file
+# Creates an Excel sheet titled output2.csv in same folder as code
+write_dict_to_csv(data, "output2.csv")
