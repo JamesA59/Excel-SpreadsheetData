@@ -107,6 +107,7 @@ pprint.pprint(inventory_data[0]["Consumer Price"])
 # When working with a large CSV file, it'd be beneficial to just work with a subset of the overall data
 # Can accomplish this by defining a filter function and apply it to each row as the data is read
 
+'''
 import csv
 import pprint
 
@@ -131,3 +132,32 @@ filtered_rows = read_csv_filter_rows("Inventory.csv", lambda row: filter_by_cata
 
 # Print filtered data
 pprint.pprint(filtered_rows)
+'''
+
+
+# Writing a CSV file:
+
+# The CSV module provides a set of classes and functions for writing CSV files
+# Will write data in an array format
+'''
+import csv
+
+# Sample data
+data = [
+  ["Item Name", "Category", "Quantity", "Wholesale Price", "Consumer Price"],
+  ["Apple","Fruits",100,0.50,0.75],
+  ["Banana","Fruits",150,0.35,0.50],
+  ["Orange","Fruits",120,0.45,0.65],
+  ["Grapes","Fruits",80,0.60,0.85],
+  ["Strawberries","Fruits",90,1.20,1.50]
+]
+
+def write_array_to_csv(data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(data)
+# Write data to CSV file
+# Creates an Excel sheet titled output.csv in same folder as code
+write_array_to_csv(data, "output.csv")
+'''
+
