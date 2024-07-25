@@ -147,6 +147,7 @@ wb.save("Content.xlsx")
 
 # Manipulate cell content and styling 
 
+'''
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side
 import openpyxl.styles.numbers as opnumstyle
@@ -195,3 +196,48 @@ sheet["c1"].border = cell_border
 
 # Save the workbook
 wb.save("StyledCells.xlsx")
+'''
+
+
+# Applying Conditional Formatting:
+
+# One of the great features of Excel is the ability to perform conditional formatting
+# Which helps highlight specific data conditions when you have a large amount of data in a worksheet
+# Openpyxl lets you add conditional formatting to Excel data with simple Python code
+
+# Apply conditional formatting to a worksheet 
+
+import openpyxl
+from openpyxl.formatting import Rule
+from openpyxl.styles import Font, PatternFill
+from openpyxl.styles.differential import DifferentialStyle
+
+
+filename = "FinancialSample.xlsx"
+
+# Load the workbook
+workbook = openpyxl.load_workbook(filename)
+sheet = workbook["SalesData"]
+
+# define the style to represent the formatting
+red_color = "ffd2d2"
+bold_text = Font(bold=True, color="00ff0000")
+red_fill = PatternFill(bgColor=red_color, fill_type="solid")
+
+diff_style = DifferentialStyle(font=bold_text, fill=red_fill)
+
+# create a rule for the condition
+rule = Rule(type="expression", dxf=diff_style, formula=["$L1<10000"])
+
+# add the rule to the entire sheet
+# Change from this: 
+#dimensions = sheet.dimensions
+#sheet.conditional_formatting.add(dimensions, rule)
+
+# Changing to only highlight one row:
+# This is new code:
+dimensions = "L1:L701"
+sheet.conditional_formatting.add(dimensions, rule)
+
+workbook.save("CondFormat.xlsx")
+print("Workbook created successfully!")
