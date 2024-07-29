@@ -19,6 +19,20 @@ header = [row[x].value for x in range (len(row))]
 print(header)
 
 
+y = 3
+n = str(y)
+p = 0
+new = "sheet" + n
+
+for i in range(len(countries)):
+    new = wb.create_sheet(countries[p])
+    new.append(header)
+    y += 1
+    p += 1
+
+
+
+'''
 sheet3 = wb.create_sheet(countries[0])
 sheet3.append(header)
 
@@ -33,7 +47,7 @@ sheet6.append(header)
 
 sheet7 = wb.create_sheet(countries[4])
 sheet7.append(header)
+'''
 
 wb.save("newFinancialSample.xlsx")
 print("Workbook created successfully!")
-print(countries)
