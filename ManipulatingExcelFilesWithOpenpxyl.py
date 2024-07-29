@@ -207,6 +207,7 @@ wb.save("StyledCells.xlsx")
 
 # Apply conditional formatting to a worksheet 
 
+'''
 import openpyxl
 from openpyxl.formatting import Rule
 from openpyxl.styles import Font, PatternFill
@@ -241,3 +242,46 @@ sheet.conditional_formatting.add(dimensions, rule)
 
 workbook.save("CondFormat.xlsx")
 print("Workbook created successfully!")
+'''
+
+
+# Adding Filters:
+
+# When working with large amounts of data, it usually helps to be able to apply filters to the dataset 
+#       so you can just focus on the parts that you care about at that moment. 
+# In Excel, you can do this by applying filter controls to the columns in the dataset. Openpyxl lets you do this in Python
+
+# Add column filters to a sheet
+
+import csv
+from openpyxl import Workbook
+
+
+def read_csv_to_array(filename):
+    # define the array that will hold the data
+    data = []
+    with open(filename, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            data.append(row)
+    return data
+
+
+# Read the data into an array of arrays
+inventory_data = read_csv_to_array("Inventory.csv")
+
+# Create a new workbook
+wb = Workbook()
+
+# Get the active worksheet and name it "TestSheet"
+sheet = wb.active
+sheet.title = "Inventory"
+
+for row in inventory_data:
+    sheet.append(row)
+
+# Add the filters to the columns
+filters = sheet.auto_filter
+filters.ref = sheet.dimensions
+
+wb.save("Inventory.xlsx")
