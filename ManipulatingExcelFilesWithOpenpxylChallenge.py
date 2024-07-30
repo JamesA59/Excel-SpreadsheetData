@@ -43,13 +43,7 @@ for i in range(len(countries)):
         sheet = wb[countries[p]]
         filters = sheet.auto_filter
         filters.ref = sheet.dimensions
-
-    for letter in filters:
-        letter = str(letter)
-        tile = letter + "1"
-        tile = float(tile)
-        new[tile].style = "Accent 2"
-    
+   
     for row in all_data:
         if countries[p] in row:
             new.append(row)
