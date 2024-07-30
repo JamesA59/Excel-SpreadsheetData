@@ -33,8 +33,6 @@ n = str(y)
 p = 0
 new = "sheet" + n
 
-filters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"]
-
 for i in range(len(countries)):
     new = wb.create_sheet(countries[p])
     new.append(header)
