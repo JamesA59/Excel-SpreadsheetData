@@ -20,25 +20,15 @@ row = sheet[1]
 header = [row[x].value for x in range (len(row))]
 print(header)
 
-for worksheet_name in workbook.sheetnames:
-    worksheet = workbook[worksheet_name]
-    dimensions = workbook.dimensions
-    print(f"Min row: {worksheet.min_row}")
-
-
-
 y = 3
 n = str(y)
 p = 0
 new = "sheet" + n
-#t = 2
-#rows = sheet[t]
-
 
 for i in range(len(countries)):
     new = workbook.create_sheet(countries[p])
     new.append(header)
-    #sheet["A1:P1"].style = "Accent 2"
+     #sheet["A1:P1"].style = "Accent 2"
     t = 2
     rows = sheet[t]
     '''
@@ -49,30 +39,18 @@ for i in range(len(countries)):
     else:
         t += 1
     '''
-    #for i in range(len())
+    r=str(t)
+    cell = "B" + r
 
+    if new[cell] == countries[p]:
+        data = [rows[x].value for x in range (len(rows))]
+        new.append(data)
+        t += 1
+    else:
+        t += 1
 
     y += 1
     p += 1
 
-
-
-'''
-sheet3 = wb.create_sheet(countries[0])
-sheet3.append(header)
-
-sheet4 = wb.create_sheet(countries[1])
-sheet4.append(header)
-
-sheet5 = wb.create_sheet(countries[2])
-sheet5.append(header)
-
-sheet6 = wb.create_sheet(countries[3])
-sheet6.append(header)
-
-sheet7 = wb.create_sheet(countries[4])
-sheet7.append(header)
-'''
-
-wb.save("newFinancialSample.xlsx")
+workbook.save("newFinancialSample.xlsx")
 print("Workbook created successfully!")
