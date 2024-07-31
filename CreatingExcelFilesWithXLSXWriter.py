@@ -12,7 +12,7 @@
 
 
 # Will create a workbook and add content to it
-
+'''
 import xlsxwriter
 import datetime
 
@@ -34,7 +34,7 @@ worksheet.write_boolean(3, 0, True)
 worksheet.write_url(4, 0, "https://www.python.org")
 
 # Write a datetime
-date_time = datetime.datetime.strptime('2030-07-28', '%y-%m-%d')
+date_time = datetime.datetime.strptime('2030-07-28', '%Y-%m-%d')
 date_format = workbook.add_format({'num_format' : 'd mmm yyyy'})
 worksheet.write_datetime(5, 0, date_time, date_format)
 
@@ -47,4 +47,50 @@ worksheet.write_column("D1", values)
 worksheet.set_zoom(200)
 
 # save the workbook
+workbook.close()
+'''
+
+
+# Formatting Worksheet Content:
+
+# XlsxWriter formatting
+# Data is oringally in plain text format without any styling
+
+import xlsxwriter
+
+# Sample data
+data = [
+    ["Item Name", "Category", "Quantity", "Wholesale Price", "Consumer Price"],
+    ["Apple", "Fruits", 100, 0.50, 0.75],
+    ["Banana", "Fruits", 150, 0.35, 0.50],
+    ["Orange", "Fruits", 120, 0.45, 0.65],
+    ["Grapes", "Fruits", 80, 0.60, 0.85],
+    ["Strawberries", "Fruits", 90, 1.20, 1.50]
+]
+
+# create the workbook
+workbook = xlsxwriter.Workbook('Inventory.xlsx')
+worksheet = workbook.add_worksheet("Inventory")
+
+# Use the add_format function to define formats that you can use later
+# in the worksheet. NOTE: If you change the format then ALL prior instances
+# of the format will be saved as the most recent one
+fmt_bold = workbook.add_format({'bold':True})
+fmt_money = workbook.add_format({
+    "font_color" : "green",
+    "num_format" : "$#,##0.00"
+})
+
+# write the data into the workbook
+worksheet.write_row(0, 0, data[0], fmt_bold)
+for row, itemlist in enumerate(data[1:], start=1):
+    worksheet.write(row, 0, itemlist[0])
+    worksheet.write(row, 1, itemlist[1], fmt_bold)
+    worksheet.write(row, 2, itemlist[2])
+    worksheet.write(row, 3, itemlist[3], fmt_money)
+    worksheet.write(row, 4, itemlist[4], fmt_money)
+
+worksheet.autofit()
+worksheet.set_zoom(200)
+
 workbook.close()
