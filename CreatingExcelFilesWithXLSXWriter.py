@@ -161,7 +161,7 @@ workbook.close()
 # Conditional formatting is a way to specify a set of conditions under which to apply a format to a set of cells
 
 # XlsxWriter formulas and conditional formatting
-
+'''
 import csv
 import xlsxwriter
 
@@ -221,5 +221,43 @@ worksheet.conditional_format(1, 0, len(inventory_data), 5, {
 
 worksheet.set_zoom(150)
 worksheet.autofit()
+
+workbook.close()
+'''
+
+
+# Writing Workbook Properties:
+
+# Using xlsx writer, you can programatically set the document properties of a workbook - 
+#       Contain info about the workbook, such as title, author, descriptive words, and so on
+# Can see these properties in Excel and going to properties viewer- 
+#       Click on file, then click on info, click properties arrow, then click advanced properties
+# While these properties don't directly affect the workbook, they can be read and used by external applications for a variety of reasons
+#       Such as: custom workflows or search indexing
+
+# XlsxWriter document properties
+
+import xlsxwriter
+
+workbook = xlsxwriter.Workbook("Properties.xlsx")
+worksheet = workbook.add_worksheet()
+
+# set the standard properties
+# Takes a dictionary class with predefined values for the standard document properties
+props = {
+    "title": "Document Properties Example",
+    "subject": "Shows how to use document properties in XlsxWriter",
+    "author": "James Allen",
+    "manager": "Colonel Monogram",
+    "category": "Example Spreadsheets",
+    "keywords": "Properties, Sample, XlsxWriter",
+    "comments": "Created using XlsxWriter as a LinkedIn Learning Example"
+}
+workbook.set_properties(props)
+
+# set some custom properties
+# Can be used to store property values that are not within the standard set 
+workbook.set_custom_property("Checked by", "Perry P")
+workbook.set_custom_property("Approved", True)
 
 workbook.close()
