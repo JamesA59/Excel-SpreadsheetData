@@ -40,6 +40,8 @@ for row, itemlist in enumerate(inventory_data[1:], start=1):
     worksheet.write_number(row, 4, float(itemlist[4]), fmt_money)
     worksheet.write_formula(row, 5, f"=E{row+1}-D{row+1}", fmt_money)
 
+
+
 worksheet.autofit()
 
 workbook.close()
